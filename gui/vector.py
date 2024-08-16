@@ -8,6 +8,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 
+import os, sys
+
 # Vector class
 class Vector(QWidget):
     def __init__(self, name):
@@ -75,7 +77,7 @@ class Vector(QWidget):
 
         self.magnitude_input_layout = QHBoxLayout()
         self.magnitude_icon = QLabel()
-        self.magnitude_icon.setPixmap(QPixmap('gui/images/magnitude.png'))
+        self.magnitude_icon.setPixmap(QPixmap(self.get_absolute_path('images/magnitude.png')))
         self.magnitude_icon.setStyleSheet('border: none;')
         self.magnitude_icon.setFixedWidth(40)
 
@@ -90,7 +92,7 @@ class Vector(QWidget):
 
         self.angle_input_layout = QHBoxLayout()
         self.angle_icon = QLabel()
-        self.angle_icon.setPixmap(QPixmap('gui/images/angle.png'))
+        self.angle_icon.setPixmap(QPixmap(self.get_absolute_path('images/angle.png')))
         self.angle_icon.setStyleSheet('border: none;')
         self.angle_icon.setFixedWidth(40)
 
@@ -198,3 +200,14 @@ class Vector(QWidget):
                 self.final_graph.draw()
             except Exception as e:
                 print(e)
+
+
+    # This is needed so that the exe works. Otherwise it wont be able to find the images
+    def get_absolute_path(self, file_name):
+        try:
+            # PyInstaller creates a temp folder and stores path in _MEIPASS
+            base_path = sys._MEIPASS
+        except Exception:
+            base_path = os.path.abspath(".")
+
+        return os.path.join(base_path, file_name)
