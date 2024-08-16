@@ -11,6 +11,7 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 # Other file imports
 from gui.vector import Vector
 from add import vector_addition, vector_fission
+import os, sys
 
 # Main Application class
 class Application(QWidget):
@@ -18,7 +19,7 @@ class Application(QWidget):
         super().__init__()
 
         # Global variables
-        self.image_path = 'gui/images'
+        self.image_path = 'images'
 
         # Variables for vector handling
         self.vector_instances = {}
@@ -51,7 +52,7 @@ class Application(QWidget):
 
         # Window details
         self.setWindowTitle("Vector Addition")
-        self.setWindowIcon(QIcon(f'{self.image_path}/window_icon.png'))
+        self.setWindowIcon(QIcon(self.get_absolute_path(f'{self.image_path}/window_icon.png')))
 
         # Styles
         self.setStyleSheet('background-color: #241e22; color: white;')
@@ -106,7 +107,7 @@ class Application(QWidget):
         self.magnitude_label_layout = QHBoxLayout() # horizontal layout
 
         self.magnitude_icon = QLabel(self)
-        self.magnitude_icon.setPixmap(QPixmap(f'{self.image_path}/magnitude.png'))
+        self.magnitude_icon.setPixmap(QPixmap(self.get_absolute_path(f'{self.image_path}/magnitude.png')))
         self.magnitude_icon.setFixedWidth(50)
 
         self.magnitude_output = QLineEdit("0") # Initial text of 0
@@ -129,7 +130,7 @@ class Application(QWidget):
         self.angle_label_layout = QHBoxLayout()
 
         self.angle_icon = QLabel(self)
-        self.angle_icon.setPixmap(QPixmap(f'{self.image_path}/angle.png'))
+        self.angle_icon.setPixmap(QPixmap(self.get_absolute_path(f'{self.image_path}/angle.png')))
         self.angle_icon.setFixedWidth(50)
         self.angle_output = QLineEdit('0') # Initial text of 0
         self.angle_output.setStyleSheet("border: none; background-color: #323232; border-radius: 10px; padding: 0px 20px;")
@@ -223,7 +224,7 @@ class Application(QWidget):
         self.button_layout = QVBoxLayout()
 
         self.select_all = QPushButton()
-        self.select_all.setIcon(QIcon(f'{self.image_path}/select_all.png'))
+        self.select_all.setIcon(QIcon(self.get_absolute_path(f'{self.image_path}/select_all.png')))
         self.select_all.setCursor(Qt.PointingHandCursor)
         self.select_all.setStyleSheet("""
             QPushButton {
@@ -241,7 +242,7 @@ class Application(QWidget):
         self.button_layout.addWidget(self.select_all)
 
         self.deselect_all = QPushButton()
-        self.deselect_all.setIcon(QIcon(f'{self.image_path}/deselect_all.png'))
+        self.deselect_all.setIcon(QIcon(self.get_absolute_path(f'{self.image_path}/deselect_all.png')))
         self.deselect_all.setCursor(Qt.PointingHandCursor)
         self.deselect_all.setStyleSheet("""
             QPushButton {
@@ -259,7 +260,7 @@ class Application(QWidget):
         self.button_layout.addWidget(self.deselect_all)
         
         self.add = QPushButton()
-        self.add.setIcon(QIcon(f'{self.image_path}/add.png'))
+        self.add.setIcon(QIcon(self.get_absolute_path(f'{self.image_path}/add.png')))
         self.add.setCursor(Qt.PointingHandCursor)
         self.add.setStyleSheet("""
             QPushButton {
@@ -277,7 +278,7 @@ class Application(QWidget):
         self.button_layout.addWidget(self.add)
 
         self.duplicate = QPushButton()
-        self.duplicate.setIcon(QIcon(f'{self.image_path}/duplicate.png'))
+        self.duplicate.setIcon(QIcon(self.get_absolute_path(f'{self.image_path}/duplicate.png')))
         self.duplicate.setCursor(Qt.PointingHandCursor)
         self.duplicate.setStyleSheet("""
             QPushButton {
@@ -295,7 +296,7 @@ class Application(QWidget):
         self.button_layout.addWidget(self.duplicate)
 
         self.remove = QPushButton()
-        self.remove.setIcon(QIcon(f'{self.image_path}/delete.png'))
+        self.remove.setIcon(QIcon(self.get_absolute_path(f'{self.image_path}/delete.png')))
         self.remove.setCursor(Qt.PointingHandCursor)
         self.remove.setStyleSheet("""
             QPushButton {
@@ -313,7 +314,7 @@ class Application(QWidget):
         self.button_layout.addWidget(self.remove)
 
         self.calculate = QPushButton()
-        self.calculate.setIcon(QIcon(f'{self.image_path}/equals.png'))
+        self.calculate.setIcon(QIcon(self.get_absolute_path(f'{self.image_path}/equals.png')))
         self.calculate.setCursor(Qt.PointingHandCursor)
         self.calculate.setStyleSheet("""
             QPushButton {
@@ -575,3 +576,13 @@ class Application(QWidget):
                 self.magnitude_output.setFocus(False) # Remove focus
                 self.angle_output.setFocus(False)
         super().mousePressEvent(event) # Call the super function made by the library
+
+    # This is needed so that the exe works. Otherwise it wont be able to find the images
+    def get_absolute_path(self, file_name):
+        try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+            base_path = sys._MEIPASS
+        except Exception:
+            base_path = os.path.abspath(".")
+
+        return os.path.join(base_path, file_name)
