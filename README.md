@@ -2,7 +2,7 @@
 School project for engineering to add two vectors
 
 ## Download the EXE
-In the releases tab, download the latest exe file. Or you can manually install it below
+In the releases tab, download the latest exe file. The exe file is located in the `output` directory. Or you can manually install it below
 
 ## Installation
 Enter these commands into the terminal
