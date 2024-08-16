@@ -2,8 +2,8 @@
 import math
 
 #Starting Message
-print("Welcome to the PhysVEK Calculator")
-mode_selection= int(input("Select an option by inputting a number\n1. 2-D Vector Addition\n2. Speed Calculation\n3. Quit\n"))
+# print("Welcome to the PhysVEK Calculator")
+# mode_selection= int(input("Select an option by inputting a number\n1. 2-D Vector Addition\n2. Speed Calculation\n3. Quit\n"))
 
 #Vector Addition Functions (hey, that's our main goal here!)
 def vector_fission(angle_degree,initial_vector_magnitude):
@@ -52,33 +52,38 @@ def speed_calculation(vector_magnitude,starting_time,ending_time):
 x_value_list= []
 y_value_list= []
 
+
+
+# Console based code for testing
+
+
 #Mode Selection 1
-if mode_selection == 1:
-    loop = True
-    while loop== True:
-        #A loop that allows you to add additional vectors until you want to stop
-        add_additional_vectors= input("Add additional vectors? Y/N\n")
-        if add_additional_vectors== ("Y"):
-            angle_degree= float(input("Input angle as a degree\n"))
-            initial_vector_magnitude= float(input("Input magnitude. Do not include units\n"))
-            x_value, y_value = vector_fission(angle_degree, initial_vector_magnitude)
-            x_value_list.append(float(x_value))
-            y_value_list.append(float(y_value))
-            print(x_value_list)
-            print(y_value_list)
-        if add_additional_vectors== ("N"):
-            resultant_angle_degree, resultant_magnitude = vector_addition(x_value_list,y_value_list)
-            print("Resultant Vector Magnitude:", round(resultant_magnitude,3)," units\nResultant Vector Angle:", round(resultant_angle_degree,3)," degrees")
-            loop= False
+# if mode_selection == 1:
+#     loop = True
+#     while loop== True:
+#         #A loop that allows you to add additional vectors until you want to stop
+#         add_additional_vectors= input("Add additional vectors? Y/N\n")
+#         if add_additional_vectors== ("Y"):
+#             angle_degree= float(input("Input angle as a degree\n"))
+#             initial_vector_magnitude= float(input("Input magnitude. Do not include units\n"))
+#             x_value, y_value = vector_fission(angle_degree, initial_vector_magnitude)
+#             x_value_list.append(float(x_value))
+#             y_value_list.append(float(y_value))
+#             print(x_value_list)
+#             print(y_value_list)
+#         if add_additional_vectors== ("N"):
+#             resultant_angle_degree, resultant_magnitude = vector_addition(x_value_list,y_value_list)
+#             print("Resultant Vector Magnitude:", round(resultant_magnitude,3)," units\nResultant Vector Angle:", round(resultant_angle_degree,3)," degrees")
+#             loop= False
 
-#Mode Selection 2
-if mode_selection == 2:
-    vector_magnitude= abs(float(input("Input magnitude. Do not include units\n")))
-    starting_time= float(input("Input starting time, do not include units\n"))
-    ending_time= float(input("Input ending time, do not include units\n"))
-    speed = speed_calculation(vector_magnitude,starting_time,ending_time)
-    print("Speed:", round(speed,3)," unit(s)/time unit")
+# #Mode Selection 2
+# if mode_selection == 2:
+#     vector_magnitude= abs(float(input("Input magnitude. Do not include units\n")))
+#     starting_time= float(input("Input starting time, do not include units\n"))
+#     ending_time= float(input("Input ending time, do not include units\n"))
+#     speed = speed_calculation(vector_magnitude,starting_time,ending_time)
+#     print("Speed:", round(speed,3)," unit(s)/time unit")
 
-#Mode Selection 3
-if mode_selection == 3:
-    quit()
+# #Mode Selection 3
+# if mode_selection == 3:
+#     quit()
